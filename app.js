@@ -263,4 +263,81 @@ function renderAdminStudent(studentId){
     <nav class="breadcrumbs">
       <a href="#/">Home</a> › <a href="#/admin">Admin</a> › ${s.name}
     </nav>
-    <h1>${s.name} <span class="bad
+    <h1>${s.name} <span class="badge">Grade ${s.grade}</span></h1>
+    <p class="muted">${s.school}</p>
+
+    <div class="grid-2 mt-2">
+      <div class="card">
+        <h3>Milestones</h3>
+        <ul class="bullets">
+          <li>FAFSA: <strong>${s.fafsa}</strong></li>
+          <li>Applications submitted: <strong>${s.apps}</strong></li>
+          <li>Module progress:</li>
+        </ul>
+        <div class="progress"><span style="width:${clampPct(s.modulePct)}%"></span></div>
+      </div>
+
+      <div class="card">
+        <h3>Timeline (sample)</h3>
+        <ul class="bullets">
+          <li>Exploration module started</li>
+          <li>College list saved</li>
+          <li>FAFSA status updated</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-2">
+      <a class="btn" href="#/admin">Back to overview</a>
+    </div>
+  `;
+}
+
+function renderNotFound(){
+  $app.innerHTML = `
+    <div class="card">
+      <h1>Page not found</h1>
+      <p class="muted">Use the navigation above to continue.</p>
+      <a class="btn" href="#/">Go home</a>
+    </div>
+  `;
+}
+
+// Helpers
+function keyFor(mId, lId, tId){ return `${mId}::${lId}::${tId}`; }
+
+function countModuleProgress(mod){
+  let total = 0, done = 0;
+  mod.lessons.forEach(l=>{
+    l.tasks.forEach(t=>{
+      total++;
+      if(AppState.completed.has(keyFor(mod.id, l.id, t.id))) done++;
+    });
+  });
+  return { total, done };
+}
+function countLessonProgress(moduleId, lesson){
+  let total = 0, done = 0;
+  lesson.tasks.forEach(t=>{
+    total++;
+    if(AppState.completed.has(keyFor(moduleId, lesson.id, t.id))) done++;
+  });
+  return { total, done };
+}
+function findTask(mod, taskId){
+  for(const l of mod.lessons){
+    const t = l.tasks.find(x=>x.id===taskId);
+    if(t) return { lesson: l, task: t };
+  }
+  return null;
+}
+function instructionsFor(type){
+  switch(type){
+    case "read": return "Read the provided guidance and note 1–2 takeaways.";
+    case "watch": return "Watch a short video and jot down key points.";
+    case "reflect": return "Write a short reflection (2–3 sentences).";
+    case "submit": return "Prepare the requested artifact (doc/link) and mark as done.";
+    case "action": return "Complete the action described and mark as done.";
+    default: return "Complete the task and mark as done.";
+  }
+}
