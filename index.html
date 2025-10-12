@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FutureU Demo — Product Walkthrough</title>
+  <meta name="description" content="Interactive front-end demo of the FutureU product. No backend, no data retention." />
+  <meta property="og:title" content="FutureU Demo — Product Walkthrough" />
+  <meta property="og:description" content="Navigate the student and admin experience. No login required." />
+  <meta property="og:image" content="assets/og-image.svg" />
+  <link rel="icon" href="assets/logo.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#app">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#/">
+        <img class="logo" src="assets/logo.svg" alt="" />
+        <span>FutureU</span>
+      </a>
+
+      <nav aria-label="Primary" id="mainNav">
+        <a href="#/">Home</a>
+        <a href="#/student">Student</a>
+        <a href="#/admin">Admin</a>
+        <button id="resetDemo" class="btn small outline" title="Reset demo UI state">Reset demo</button>
+      </nav>
+
+      <button id="menuBtn" class="menu-btn" aria-label="Toggle menu">☰</button>
+    </div>
+  </header>
+
+  <main id="app" class="container"></main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> FutureU • Demo only (no data retention)</p>
+      <a class="to-top" href="#">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <!-- Data & App -->
+  <script src="demo-data.js"></script>
+  <script src="utils.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
