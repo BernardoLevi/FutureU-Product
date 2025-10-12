@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="FutureU social image">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b0f19"/>
+      <stop offset="1" stop-color="#0f162c"/>
+    </linearGradient>
+    <radialGradient id="orb" cx="65%" cy="45%" r="60%">
+      <stop offset="0" stop-color="#4ea8ff" stop-opacity=".5"/>
+      <stop offset="1" stop-color="#7c4dff" stop-opacity=".1"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <ellipse cx="820" cy="350" rx="360" ry="220" fill="url(#orb)"/>
+  <text x="80" y="280" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="72" fill="#e9eef8" font-weight="700">FutureU — Demo</text>
+  <text x="80" y="340" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="32" fill="#bac4d8">Navigate Student & Admin flows (no backend)</text>
+</svg>
