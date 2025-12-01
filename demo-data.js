@@ -2,8 +2,23 @@
 window.DEMO = {
   modules: [
     {
+      id: "start",
+      title: "Start Here: My Goals & Timeline",
+      estMinutes: 30,
+      lessons: [
+        { id: "goals", title: "Set my goals", tasks: [
+          { id: "goal-reflection", title: "Write my goals", type: "reflect" },
+          { id: "goal-timeline", title: "Outline milestones", type: "submit" },
+        ]},
+        { id: "support", title: "Build my support team", tasks: [
+          { id: "mentor-check", title: "Identify mentors", type: "action" },
+          { id: "meeting-plan", title: "Plan check-ins", type: "plan" },
+        ]},
+      ]
+    },
+    {
       id: "explore",
-      title: "Explore options",
+      title: "Explore Paths After High School",
       estMinutes: 40,
       lessons: [
         { id: "interests", title: "Identify interests", tasks: [
@@ -18,7 +33,7 @@ window.DEMO = {
     },
     {
       id: "list",
-      title: "Build a college list",
+      title: "Build My College & Alternatives List",
       estMinutes: 45,
       lessons: [
         { id: "criteria", title: "Define criteria", tasks: [
@@ -31,7 +46,7 @@ window.DEMO = {
     },
     {
       id: "applications",
-      title: "Applications",
+      title: "Applications: Essays, Forms & Deadlines",
       estMinutes: 80,
       lessons: [
         { id: "timeline", title: "Timeline & deadlines", tasks: [
@@ -44,7 +59,7 @@ window.DEMO = {
     },
     {
       id: "fafsa",
-      title: "Financial aid (FAFSA)",
+      title: "Paying for College: FAFSA & Scholarships",
       estMinutes: 45,
       lessons: [
         { id: "overview", title: "FAFSA overview", tasks: [
@@ -53,11 +68,14 @@ window.DEMO = {
         { id: "checklist", title: "FAFSA checklist", tasks: [
           { id: "fafsa-check", title: "Checklist ready", type: "submit" },
         ]},
+        { id: "scholarships", title: "Scholarship search", tasks: [
+          { id: "scholarship-list", title: "List 3 scholarships", type: "submit" },
+        ]},
       ]
     },
     {
       id: "decisions",
-      title: "Decisions & next steps",
+      title: "Decide & Prepare for What’s Next",
       estMinutes: 40,
       lessons: [
         { id: "compare", title: "Compare offers", tasks: [
