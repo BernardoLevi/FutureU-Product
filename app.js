@@ -53,8 +53,8 @@ function renderHome(){
   $app.innerHTML = `
     <section class="section">
       <div class="card">
-        <h1>FutureU — Demo Product</h1>
-        <p class="muted">Navigate the experience as a student or as an admin. This is a front-end only demo—no login, no data retention.</p>
+        <h1>FutureU - the ultimate college prep for your school</h1>
+        <p class="muted">Navigate the experience as a student or as an admin. This is a front-end only demo - no login, no data retention. Feel free to complete the modules in your order of preference</p>
         <div class="mt-1">
           <a class="btn primary" href="#/student">I’m a Student</a>
           <a class="btn outline" href="#/admin">I’m an Admin</a>
