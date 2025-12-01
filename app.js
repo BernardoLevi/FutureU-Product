@@ -173,12 +173,37 @@ function renderTask(moduleId, taskId){
 
   const key = keyFor(mod.id, lesson.id, task.id);
   const isDone = AppState.completed.has(key);
+  const showGoalVideo = mod.id === "start" && task.id === "goal-reflection";
+
+  const metaLine = showGoalVideo ? "" : `<p class="muted">${task.type.toUpperCase()} · Part of “${lesson.title}”</p>`;
+  const goalVideoModal = showGoalVideo ? `
+      <div class="modal-overlay open" id="goalVideoModal" role="dialog" aria-modal="true" aria-label="Goal setting video">
+        <div class="modal card">
+          <button class="modal-close" id="closeGoalVideo" aria-label="Close video">×</button>
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/qtg-7bqWx5g" title="Goal setting video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+  ` : "";
+
+  const goalVideoCta = showGoalVideo ? `
+      <div class="inline-banner">
+        <div>
+          <p class="muted">Watch this quick video to spark ideas before you write.</p>
+        </div>
+        <button class="btn small" id="openGoalVideo">Open video again</button>
+      </div>
+  ` : "";
 
   $app.innerHTML = `
     <nav class="breadcrumbs"><a href="#/">Home</a> › <a href="#/student">Student</a> › <a href="#/module/${mod.id}">${mod.title}</a> › ${task.title}</nav>
     <div class="card">
       <h1>${task.title}</h1>
-      <p class="muted">${task.type.toUpperCase()} · Part of “${lesson.title}”</p>
+      ${metaLine}
+
+      ${goalVideoModal}
+      ${goalVideoCta}
 
       <div class="section">
         <h3>Instructions</h3>
@@ -197,6 +222,18 @@ function renderTask(moduleId, taskId){
     else { AppState.completed.add(key); }
     routeTo(`#/task/${moduleId}/${taskId}`);
   });
+
+  if(showGoalVideo){
+    const modal = document.getElementById("goalVideoModal");
+    const closeBtn = document.getElementById("closeGoalVideo");
+    const openBtn = document.getElementById("openGoalVideo");
+    const openModal = ()=> modal?.classList.add("open");
+    const closeModal = ()=> modal?.classList.remove("open");
+
+    closeBtn?.addEventListener("click", closeModal);
+    openBtn?.addEventListener("click", openModal);
+    modal?.addEventListener("click", (e)=>{ if(e.target === modal) closeModal(); });
+  }
 }
 
 function renderAdmin(){
