@@ -3,6 +3,7 @@
 const AppState = {
   // ephemeral UI-only state: completed tasks during this session
   completed: new Set(), // keys like `${moduleId}::${lessonId}::${taskId}`
+  activeTask: null,
 };
 
 // DOM helpers
@@ -20,6 +21,7 @@ document.querySelectorAll("a.to-top").forEach(a=>{
 // Reset demo state
 document.getElementById("resetDemo")?.addEventListener("click", ()=>{
   AppState.completed.clear();
+  AppState.activeTask = null;
   routeTo(location.hash || "#/");
 });
 
@@ -30,6 +32,16 @@ window.addEventListener("DOMContentLoaded", ()=> routeTo(location.hash || "#/"))
 function routeTo(hash){
   const path = (hash || "#/").replace(/^#/, "");
   const [_, seg1, seg2, seg3] = path.split("/"); // '' , 'student' / 'module' / 'task' etc.
+
+  // If leaving a task, mark it complete automatically.
+  if(AppState.activeTask){
+    const { moduleId, taskId, key } = AppState.activeTask;
+    const stayingOnTask = seg1 === "task" && seg2 === moduleId && seg3 === taskId;
+    if(!stayingOnTask){
+      AppState.completed.add(key);
+      AppState.activeTask = null;
+    }
+  }
 
   // highlight nav
   document.querySelectorAll("#mainNav a").forEach(a=>{
@@ -81,7 +93,7 @@ function renderHome(){
       <div class="grid-2">
         <div class="card">
           <h2>Student flow</h2>
-          <p>Dashboard → Module → Task. Press “Mark as done” to simulate a submission. Progress bars update in this session only.</p>
+          <p>Dashboard → Module → Task. Tasks are marked done automatically as you leave them. Progress bars update in this session only.</p>
           <a class="btn" href="#/student">Open student dashboard →</a>
         </div>
         <div class="card">
@@ -175,6 +187,8 @@ function renderTask(moduleId, taskId){
   const isDone = AppState.completed.has(key);
   const showGoalVideo = mod.id === "start" && task.id === "goal-reflection";
 
+  AppState.activeTask = { moduleId: mod.id, lessonId: lesson.id, taskId: task.id, key };
+
   const metaLine = showGoalVideo ? "" : `<p class="muted">${task.type.toUpperCase()} · Part of “${lesson.title}”</p>`;
   const goalVideoModal = showGoalVideo ? `
       <div class="modal-overlay open" id="goalVideoModal" role="dialog" aria-modal="true" aria-label="Goal setting video">
@@ -223,17 +237,14 @@ function renderTask(moduleId, taskId){
       </div>
 
       <div class="mt-1">
-        <button id="markDone" class="btn ${isDone?'outline':''}">${isDone?'Marked as done':'Mark as done'}</button>
+        ${isDone
+          ? '<div class="inline-banner"><strong>Marked as done.</strong> You can review anytime.</div>'
+          : '<div class="inline-banner"><strong>Done automatically.</strong> This task will be marked complete when you leave this page.</div>'
+        }
         <a class="btn" href="#/module/${mod.id}">Back to module</a>
       </div>
     </div>
   `;
-
-  document.getElementById("markDone")?.addEventListener("click", ()=>{
-    if(AppState.completed.has(key)){ AppState.completed.delete(key); }
-    else { AppState.completed.add(key); }
-    routeTo(`#/task/${moduleId}/${taskId}`);
-  });
 
   if(showGoalVideo){
     const modal = document.getElementById("goalVideoModal");
