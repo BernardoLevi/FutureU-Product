@@ -196,6 +196,16 @@ function renderTask(moduleId, taskId){
       </div>
   ` : "";
 
+  const goalVideoEmbed = showGoalVideo ? `
+      <div class="section">
+        <h3>Goal-setting video</h3>
+        <p class="muted">Keep the video handy below after closing the pop up.</p>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/qtg-7bqWx5g" title="Goal setting video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </div>
+  ` : "";
+
   $app.innerHTML = `
     <nav class="breadcrumbs"><a href="#/">Home</a> › <a href="#/student">Student</a> › <a href="#/module/${mod.id}">${mod.title}</a> › ${task.title}</nav>
     <div class="card">
@@ -204,6 +214,8 @@ function renderTask(moduleId, taskId){
 
       ${goalVideoModal}
       ${goalVideoCta}
+
+      ${goalVideoEmbed}
 
       <div class="section">
         <h3>Instructions</h3>
