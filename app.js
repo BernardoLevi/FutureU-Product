@@ -3,6 +3,7 @@
 const AppState = {
   // ephemeral UI-only state: completed tasks during this session
   completed: new Set(), // keys like `${moduleId}::${lessonId}::${taskId}`
+  activeTaskKey: null,
 };
 
 // DOM helpers
@@ -30,6 +31,16 @@ window.addEventListener("DOMContentLoaded", ()=> routeTo(location.hash || "#/"))
 function routeTo(hash){
   const path = (hash || "#/").replace(/^#/, "");
   const [_, seg1, seg2, seg3] = path.split("/"); // '' , 'student' / 'module' / 'task' etc.
+
+  // If the user is leaving a task page, automatically mark it complete
+  if (AppState.activeTaskKey) {
+    const [prevModule, prevLesson, prevTask] = AppState.activeTaskKey.split("::");
+    const stayingOnSameTask = seg1 === "task" && seg2 === prevModule && seg3 === prevTask;
+    if (!stayingOnSameTask) {
+      AppState.completed.add(AppState.activeTaskKey);
+      AppState.activeTaskKey = null;
+    }
+  }
 
   // highlight nav
   document.querySelectorAll("#mainNav a").forEach(a=>{
@@ -173,6 +184,7 @@ function renderTask(moduleId, taskId){
 
   const key = keyFor(mod.id, lesson.id, task.id);
   const isDone = AppState.completed.has(key);
+  AppState.activeTaskKey = key;
   const showGoalVideo = mod.id === "start" && task.id === "goal-reflection";
 
   const metaLine = showGoalVideo ? "" : `<p class="muted">${task.type.toUpperCase()} · Part of “${lesson.title}”</p>`;
@@ -211,17 +223,14 @@ function renderTask(moduleId, taskId){
       </div>
 
       <div class="mt-1">
-        <button id="markDone" class="btn ${isDone?'outline':''}">${isDone?'Marked as done':'Mark as done'}</button>
-        <a class="btn" href="#/module/${mod.id}">Back to module</a>
+        <div>
+          <span class="badge">${isDone ? 'Marked as done' : 'In progress'}</span>
+          <p class="muted" style="margin:.35rem 0 0">This task is marked as done automatically when you leave this page.</p>
+        </div>
+        <a class="btn mt-1" href="#/module/${mod.id}">Back to module</a>
       </div>
     </div>
   `;
-
-  document.getElementById("markDone")?.addEventListener("click", ()=>{
-    if(AppState.completed.has(key)){ AppState.completed.delete(key); }
-    else { AppState.completed.add(key); }
-    routeTo(`#/task/${moduleId}/${taskId}`);
-  });
 
   if(showGoalVideo){
     const modal = document.getElementById("goalVideoModal");
