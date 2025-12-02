@@ -201,14 +201,7 @@ function renderTask(moduleId, taskId){
       </div>
   ` : "";
 
-  const goalVideoCta = showGoalVideo ? `
-      <div class="inline-banner">
-        <div>
-          <p class="muted">Watch this quick video to spark ideas before you write.</p>
-        </div>
-        <button class="btn small" id="openGoalVideo">Open video again</button>
-      </div>
-  ` : "";
+  const goalVideoCta = "";
 
   const goalVideoEmbed = showGoalVideo ? `
       <div class="section">
