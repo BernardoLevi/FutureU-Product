@@ -187,6 +187,15 @@ function renderTask(moduleId, taskId){
       </div>
   ` : "";
 
+  const goalInlineVideo = showGoalVideo ? `
+      <div class="inline-video" id="goalInlineVideo" hidden>
+        <p class="muted">Prefer to keep it handy? Watch the video right in this task.</p>
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/qtg-7bqWx5g" title="Goal setting video (inline)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </div>
+  ` : "";
+
   const goalVideoCta = showGoalVideo ? `
       <div class="inline-banner">
         <div>
@@ -204,6 +213,7 @@ function renderTask(moduleId, taskId){
 
       ${goalVideoModal}
       ${goalVideoCta}
+      ${goalInlineVideo}
 
       <div class="section">
         <h3>Instructions</h3>
@@ -227,11 +237,13 @@ function renderTask(moduleId, taskId){
     const modal = document.getElementById("goalVideoModal");
     const closeBtn = document.getElementById("closeGoalVideo");
     const openBtn = document.getElementById("openGoalVideo");
+    const inlineVideo = document.getElementById("goalInlineVideo");
     const openModal = ()=> modal?.classList.add("open");
-    const closeModal = ()=> modal?.classList.remove("open");
+    const revealInlineVideo = ()=> inlineVideo?.removeAttribute("hidden");
+    const closeModal = ()=> { modal?.classList.remove("open"); revealInlineVideo(); };
 
     closeBtn?.addEventListener("click", closeModal);
-    openBtn?.addEventListener("click", openModal);
+    openBtn?.addEventListener("click", ()=>{ openModal(); revealInlineVideo(); });
     modal?.addEventListener("click", (e)=>{ if(e.target === modal) closeModal(); });
   }
 }

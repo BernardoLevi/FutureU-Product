@@ -93,6 +93,14 @@ img{max-width:100%;height:auto}
   padding:.9rem 1rem;margin:1rem 0;border:1px solid var(--border);border-radius:12px;
   background:linear-gradient(90deg,rgba(78,168,255,.12),rgba(124,77,255,.12));
 }
+.inline-video{
+  margin:1rem 0 1.5rem;
+  padding:1rem;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--bg-2);
+  box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
 
 @media (max-width: 860px){
   .grid-2{grid-template-columns:1fr}
