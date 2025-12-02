@@ -249,7 +249,7 @@ function renderAdmin(){
       <td>${s.grade}</td>
       <td><div class="progress"><span style="width:${clampPct(s.modulePct)}%"></span></div></td>
       <td>${s.fafsa}</td>
-      <td>${s.apps}</td>
+      <td>${s.plan}</td>
     </tr>
   `).join("");
 
@@ -274,7 +274,7 @@ function renderAdmin(){
       <div class="mt-1" style="overflow:auto">
         <table class="table">
           <thead>
-            <tr><th>Name</th><th>School</th><th>Grade</th><th>Module %</th><th>FAFSA</th><th>Apps</th></tr>
+            <tr><th>Name</th><th>School</th><th>Grade</th><th>Module %</th><th>FAFSA</th><th>Postsecondary plan</th></tr>
           </thead>
           <tbody>${rows}</tbody>
         </table>
@@ -285,7 +285,7 @@ function renderAdmin(){
   document.getElementById("exportCsv")?.addEventListener("click", ()=>{
     const csvRows = DEMO.students.map(s=>({
       id: s.id, name: s.name, school: s.school, grade: s.grade,
-      module_percent: clampPct(s.modulePct), fafsa_status: s.fafsa, applications_submitted: s.apps
+      module_percent: clampPct(s.modulePct), fafsa_status: s.fafsa, postsecondary_plan: s.plan
     }));
     const blob = toCSV(csvRows);
     downloadBlob(blob, "futureu-demo-students.csv");
@@ -308,7 +308,7 @@ function renderAdminStudent(studentId){
         <h3>Milestones</h3>
         <ul class="bullets">
           <li>FAFSA: <strong>${s.fafsa}</strong></li>
-          <li>Applications submitted: <strong>${s.apps}</strong></li>
+          <li>Postsecondary plan: <strong>${s.plan}</strong></li>
           <li>Module progress:</li>
         </ul>
         <div class="progress"><span style="width:${clampPct(s.modulePct)}%"></span></div>
