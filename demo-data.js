@@ -87,9 +87,9 @@ window.DEMO = {
 
   // Example cohort for Admin view
   students: [
-    { id: "s001", name: "Jordan Lee", school: "North HS", grade: 12, fafsa: "In progress", apps: 2, modulePct: 42 },
-    { id: "s002", name: "Avery Patel", school: "Central HS", grade: 12, fafsa: "Not started", apps: 0, modulePct: 15 },
-    { id: "s003", name: "Riley Chen", school: "West HS", grade: 11, fafsa: "N/A (11th)", apps: 0, modulePct: 8 },
-    { id: "s004", name: "Samira Ali", school: "North HS", grade: 12, fafsa: "Submitted", apps: 4, modulePct: 77 }
+    { id: "s001", name: "Jordan Lee", school: "North HS", grade: 12, fafsa: "In progress", plan: "4-year", modulePct: 42 },
+    { id: "s002", name: "Avery Patel", school: "Central HS", grade: 12, fafsa: "Not started", plan: "Undecided", modulePct: 15 },
+    { id: "s003", name: "Riley Chen", school: "West HS", grade: 11, fafsa: "N/A (11th)", plan: "Trades", modulePct: 8 },
+    { id: "s004", name: "Samira Ali", school: "North HS", grade: 12, fafsa: "Submitted", plan: "Work", modulePct: 77 }
   ]
 };
