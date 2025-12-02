@@ -190,16 +190,7 @@ function renderTask(moduleId, taskId){
   AppState.activeTask = { moduleId: mod.id, lessonId: lesson.id, taskId: task.id, key };
 
   const metaLine = showGoalVideo ? "" : `<p class="muted">${task.type.toUpperCase()} · Part of “${lesson.title}”</p>`;
-  const goalVideoModal = showGoalVideo ? `
-      <div class="modal-overlay open" id="goalVideoModal" role="dialog" aria-modal="true" aria-label="Goal setting video">
-        <div class="modal card">
-          <button class="modal-close" id="closeGoalVideo" aria-label="Close video">×</button>
-          <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/qtg-7bqWx5g" title="Goal setting video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
-  ` : "";
+  const goalVideoModal = "";
 
   const goalVideoCta = "";
 
@@ -229,6 +220,20 @@ function renderTask(moduleId, taskId){
         <p>${instructionsFor(task.type)}</p>
       </div>
 
+      ${showGoalVideo ? `
+      <div class="section">
+        <h3>Capture your reflection</h3>
+        <div class="input-group">
+          <label for="reflectionText">Write a few sentences about your goals</label>
+          <textarea id="reflectionText" name="reflectionText" placeholder="Jot down your thoughts after watching..."></textarea>
+        </div>
+        <div class="input-group">
+          <label for="reflectionUpload">Or upload your written reflection</label>
+          <input id="reflectionUpload" name="reflectionUpload" type="file" />
+          <p class="muted">Uploads stay on this page only—no account required.</p>
+        </div>
+      </div>` : ""}
+
       <div class="mt-1">
         ${isDone
           ? '<div class="inline-banner"><strong>Marked as done.</strong> You can review anytime.</div>'
@@ -240,15 +245,7 @@ function renderTask(moduleId, taskId){
   `;
 
   if(showGoalVideo){
-    const modal = document.getElementById("goalVideoModal");
-    const closeBtn = document.getElementById("closeGoalVideo");
-    const openBtn = document.getElementById("openGoalVideo");
-    const openModal = ()=> modal?.classList.add("open");
-    const closeModal = ()=> modal?.classList.remove("open");
-
-    closeBtn?.addEventListener("click", closeModal);
-    openBtn?.addEventListener("click", openModal);
-    modal?.addEventListener("click", (e)=>{ if(e.target === modal) closeModal(); });
+    // No-op for now; dedicated reflection controls live directly on the page.
   }
 }
 
