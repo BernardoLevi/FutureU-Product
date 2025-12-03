@@ -18,13 +18,6 @@ document.querySelectorAll("a.to-top").forEach(a=>{
   a.addEventListener("click",(e)=>{ e.preventDefault(); window.scrollTo({ top:0, behavior:"smooth" });});
 });
 
-// Reset demo state
-document.getElementById("resetDemo")?.addEventListener("click", ()=>{
-  AppState.completed.clear();
-  AppState.activeTask = null;
-  routeTo(location.hash || "#/");
-});
-
 // Router
 window.addEventListener("hashchange", ()=> routeTo(location.hash));
 window.addEventListener("DOMContentLoaded", ()=> routeTo(location.hash || "#/"));
@@ -126,7 +119,7 @@ function renderStudentDashboard(){
   $app.innerHTML = `
     <nav class="breadcrumbs"><a href="#/">Home</a> › Student</nav>
     <h1>Student dashboard</h1>
-    <p class="muted">Pick a module to continue. Use “Reset demo” to start over.</p>
+    <p class="muted">Pick a module to continue.</p>
     <div class="grid-3 mt-2">${cards}</div>
   `;
 }
