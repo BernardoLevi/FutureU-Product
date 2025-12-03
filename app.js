@@ -192,7 +192,7 @@ function renderTask(moduleId, taskId){
         <h3>Goal-setting video</h3>
         <p class="muted">Keep the video handy below after closing the pop up.</p>
         <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/qtg-7bqWx5g" title="Goal setting video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/54TX1iTUfO8" title="Goal setting video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
       </div>
   ` : "";
